@@ -22,37 +22,28 @@ app.use(router);
 router.post('/api/addUser', (req, res) => {
     const { firstname, lastname, email, phone, password, role } = req.body;
   
-    // Sprawdzanie, czy email i hasło nie są puste
-    if (!email || !password) {
-        return res.status(400).send('Email and password are required.');
-    }
-  
-    // Sprawdzanie, czy rola jest prawidłowa
     const userRole = role === 'admin' ? 'admin' : 'user';
   
-    // Sprawdzanie, czy email już istnieje
     pool.query('SELECT * FROM users WHERE email = $1', [email], (err, result) => {
         if (err) {
-            return res.status(500).send('Error checking user.');
+            return res.status(500).send('Wystąpił problem z weryfikacją użytkownika.');
         }
     
         if (result.rows.length > 0) {
-            return res.status(409).send('Email already exists.');
+            return res.status(409).send('Konto z podanym adresem E-mail już istnieje.');
         }
     
-        // Hashowanie hasła
         bcrypt.hash(password, saltRounds, (hashErr, hash) => {
             if (hashErr) {
-            return res.status(500).send('Error hashing password.');
+                return res.status(500).send('Wystąpił problem z hashowaniem hasła. Spróbuj ponownie później.');
             }
-    
-            // Wykonanie zapytania do bazy danych z zahashowanym hasłem
+
             pool.query('INSERT INTO users (role, name, surname, email, phone_nbr, password, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
                     [userRole, firstname, lastname, email, phone, hash, new Date()], (insertErr, results) => {
             if (insertErr) {
                 throw insertErr;
             }
-            res.status(201).send(`Pomyślnie dodano użytkownika!`);
+            res.status(201).send('Pomyślnie dodano użytkownika!');
             });
         });
     });
