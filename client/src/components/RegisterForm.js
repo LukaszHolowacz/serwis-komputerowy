@@ -16,9 +16,40 @@ function RegisterForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Dane rejestracji:', formData);
+  
+    // Walidacja danych formularza (opcjonalnie)
+    // Upewnij się, że hasła są takie same, itp.
+  
+    // Wysyłanie danych do serwera
+    try {
+      const response = await fetch('http://localhost:3001/api/addUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstname: formData.firstName,
+          lastname: formData.lastName, // Poprawka literówki w 'lastname'
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password,
+          role: 'user' // Jeśli chcesz wysłać rolę, opcjonalnie
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Coś poszło nie tak przy rejestracji.');
+      }
+  
+      const data = await response.json();
+      console.log(data);
+      // Dalsze działania, np. przekierowanie po pomyślnej rejestracji
+  
+    } catch (error) {
+      console.error('Błąd podczas rejestracji:', error);
+    }
   };
 
   return (
