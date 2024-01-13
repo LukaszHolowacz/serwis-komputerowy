@@ -38,7 +38,7 @@ function RegisterForm() {
   
     if (Object.keys(newErrors).length === 0) {
       try {
-        const response = await fetch('http://localhost:3001/api/addUser', {
+        const response = await fetch('http://localhost:3001/addUser', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...formData, role: 'user' }),

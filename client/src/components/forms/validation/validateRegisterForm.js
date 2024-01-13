@@ -12,30 +12,26 @@ const validateRegisterForm = (formData) => {
     if (!formData.email.trim()) {
       errors.email = 'Email jest wymagany.';
     }
+    
     if (!formData.phone.trim()) {
       errors.phone = 'Numer telefonu jest wymagany.';
-    } else {
-      if (!/^\d+$/.test(formData.phone)) {
-        errors.phone = 'Numer telefonu powinien zawierać tylko cyfry.';
-      }
+    } 
+    else if (!/^\d+$/.test(formData.phone)) {
+      errors.phone = 'Numer telefonu powinien zawierać tylko cyfry.';
     }
 
     if (!formData.password) {
       errors.password = 'Hasło jest wymagane.';
     }
-    else{
-      if (formData.password.length < 8) {
-        errors.password = 'Hasło musi zawierać co najmniej 8 znaków.';
-      }
+    else if (formData.password.length < 8){
+      errors.password = 'Hasło musi zawierać co najmniej 8 znaków.';
     } 
 
     if (!formData.confirmPassword) {
       errors.confirmPassword = 'Potwierdzenie hasła jest wymagane.';
     }
-    else{
-        if (formData.password !== formData.confirmPassword) {
-            errors.confirmPassword = 'Hasła nie są takie same.';
-        }
+    else if (formData.password !== formData.confirmPassword){
+      errors.confirmPassword = 'Hasła nie są takie same.';
     }
     return errors;
 };
