@@ -1,24 +1,51 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import FormField from './FormField';
 import validateLoginForm from './validation/validateLoginForm'; 
 
 function LoginForm() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({ email: '', password: '', rememberMe: false });
   const [formErrors, setFormErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
+
+  if (location.state && location.state.message) {
+    setMessage(location.state.message);
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
 
-  const handleSubmit = async (event) => {
+  async function handleServerResponse(response) {
+    if (response.status === 401) {
+      const errorResponse = await response.text();
+      setErrorMessage(errorResponse);
+      return false; 
+    }
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Błąd logowania. Spróbuj ponownie.');
+    }
+  
+    const data = await response.json();
+    if (response.ok) {
+      localStorage.setItem('token', data.token);
+      navigate('/');
+    }
+    
+    return true; 
+  }
+  
+  async function handleSubmit(event) {
     event.preventDefault();
     const errors = validateLoginForm(formData);
     setFormErrors(errors);
-
+  
     if (Object.keys(errors).length === 0) {
       setErrorMessage('');
       try {
@@ -28,29 +55,13 @@ function LoginForm() {
           body: JSON.stringify(formData),
         });
   
-        if (response.status === 401) {
-          const errorResponse = await response.text();
-          setErrorMessage(errorResponse);
-          return;
-        }
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Błąd logowania. Spróbuj ponownie.');
-        }
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem('token', data.token); 
-          navigate('/'); 
-        }
-  
-        const data = await response.json();
-        console.log('Login successful:', data);
-        // Obsłuż zalogowanie użytkownika (np. przechowaj token, przekieruj itp.)
+        await handleServerResponse(response);
       } catch (error) {
         setErrorMessage(error.message);
       }
     }
-  };
+  }
+  
 
   const formFields = [
     { type: 'text', name: 'email', placeholder: 'E-mail' },

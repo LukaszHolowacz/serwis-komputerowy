@@ -28,7 +28,10 @@ function RegisterForm() {
     if (!response.ok) {
       throw new Error('Coś poszło nie tak przy rejestracji.');
     }
-    navigate('/login', { message: 'Pomyślnie zarejestrowano. Możesz się teraz zalogować.' });
+    
+    alert('Pomyślnie zarejestrowano. Możesz się teraz zalogować.');
+
+    navigate('/login');
   };
 
   const handleSubmit = async (event) => {

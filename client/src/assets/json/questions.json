@@ -1,0 +1,95 @@
+{
+    "questions": [
+      {
+        "id": 1,
+        "question": "Jaki jest Twój maksymalny budżet na komputer?",
+        "fieldType": "numeric",
+        "required": true,
+        "many-answers": false
+      },
+      {
+        "id": 2,
+        "question": "Do jakich głównych celów będziesz używać komputera?",
+        "fieldType": "dropdown",
+        "options": ["Gry", "Praca biurowa", "Edycja wideo", "Programowanie", "Grafika Komputerowa", "Ogólne użytkowanie", "inne.."],
+        "required": true,
+        "many-answers": true
+      },
+      {
+        "id": 3,
+        "question": "W jakie gry głównie grasz/będziesz chciał grać?",
+        "fieldType": "text",
+        "options": [
+         "Strzelanki (Fortnite, Counter-Strike)",
+         "Gry RPG (The Witcher 3: Wild Hunt, Skyrim)",
+         "Gry strategiczne (StarCraft, Civilization VI)", 
+         "Gry przygodowe (The Legend of Zelda: Breath of the Wild, Red Dead Redemption 2)", 
+         "Gry akcji (Grand Theft Auto V, Assassin's Creed)", 
+         "Gry sportowe (FIFA, NBA 2K)", 
+         "Gry wyścigowe (Forza Horizon, Gran Turismo)",
+         "Platformówki (Super Mario Odyssey, Celecte)",
+         "Gry logiczne (Portal, Tetris)",
+         "Symulatory (The Sims, Flight Simulator)",
+         "Gry MMO (League of Legends, Dota 2)",
+         "Gry Survivalowe i Sandbox (Minecraft, ARK: Survival Evolved)",
+         "Gry Horror (Resident Evil, Outlast)",
+         "inne.."
+        ],
+        "required": true,
+        "conditional": {
+          "dependsOnQuestionId": 2,
+          "dependsOnAnswer": "Gry"
+        },
+        "many-answers": true
+      },
+      {
+        "id": 4,
+        "question": "Czy masz preferencje co do marki procesora?",
+        "fieldType": "dropdown",
+        "options": ["Intel", "AMD", "Brak preferencji"],
+        "required": false,
+        "many-answers": false
+      },
+      {
+        "id": 5,
+        "question": "Którą firmę produkującą karty graficzne preferujesz?",
+        "fieldType": "dropdown",
+        "options": ["NVIDIA", "AMD", "Intel", "Brak preferencji"],
+        "required": false,
+        "many-answers": true
+      },
+      {
+        "id": 6,
+        "question": "Jak ważna jest dla Ciebie wydajność graficzna?",
+        "fieldType": "dropdown",
+        "options": ["Podstawowa", "Średnia", "Wysoka", "Brak preferencji"],
+        "required": true,
+        "many-answers": true
+      },
+      {
+        "id": 7,
+        "question": "Ile pamięci RAM potrzebujesz?",
+        "fieldType": "dropdown",
+        "options": ["8GB", "16GB", "32GB", "64GB", "Więcej.."],
+        "required": true,
+        "many-answers": false
+      },
+      {
+        "id": 8,
+        "question": "Jakie rozwiązanie do przechowywania danych preferujesz?",
+        "fieldType": "dropdown",
+        "options": ["SSD", "HDD", "Kombinacja SSD/HDD", "Brak preferencji"],
+        "required": false,
+        "many-answers": false
+      },
+      {
+        "id": 9,
+        "question": "Jaki rozmiar i typ obudowy komputera preferujesz?",
+        "fieldType": "dropdown",
+        "options": ["Mini Tower", "Mid Tower", "Full Tower", "Brak preferencji"],
+        "required": false,
+        "many-answers": false
+      }
+    ]
+  }
+  

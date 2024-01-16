@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Ustaw czas wygaśnięcia tokena
-    const expiresIn = rememberMe ? '14d' : '1h'; 
+    const expiresIn = rememberMe ? '62d' : '1h'; 
 
     // Generuj token JWT
     const token = jwt.sign(
