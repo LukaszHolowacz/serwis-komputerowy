@@ -1,5 +1,5 @@
 import React from 'react';
-import ComputerConfigForm from '../components/forms/ComputerConfigForm';
+import ComputerConfigForm from '../components/forms/ComputerConfigForm/ComputerConfigForm';
 
 function ComputerConfigPage() {
   return (
