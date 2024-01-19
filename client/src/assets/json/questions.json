@@ -18,7 +18,8 @@
       {
         "id": 3,
         "question": "W jakie gry głównie grasz/będziesz chciał grać?",
-        "fieldType": "text",
+        "short_question": "Gry",
+        "fieldType": "dropdown",
         "options": [
          "Strzelanki (Fortnite, Counter-Strike)",
          "Gry RPG (The Witcher 3: Wild Hunt, Skyrim)",
@@ -35,59 +36,95 @@
          "Gry Horror (Resident Evil, Outlast)",
          "inne.."
         ],
-        "required": true,
-        "conditional": {
-          "dependsOnQuestionId": 2,
-          "dependsOnAnswer": "Gry"
-        },
+        "required": false,
         "many-answers": true
       },
       {
         "id": 4,
         "question": "Czy masz preferencje co do marki procesora?",
+        "short_question": "Marka procesora",
         "fieldType": "dropdown",
-        "options": ["Intel", "AMD", "Brak preferencji"],
+        "options": ["Brak preferencji", "Intel", "AMD"],
         "required": false,
         "many-answers": false
       },
       {
         "id": 5,
         "question": "Którą firmę produkującą karty graficzne preferujesz?",
+        "short_question": "Marka karty graficznej",
         "fieldType": "dropdown",
-        "options": ["NVIDIA", "AMD", "Intel", "Brak preferencji"],
+        "options": ["Brak preferencji", "NVIDIA", "AMD", "Intel"],
         "required": false,
         "many-answers": true
       },
       {
         "id": 6,
         "question": "Jak ważna jest dla Ciebie wydajność graficzna?",
+        "short_question": "Wydajność graficzna",
         "fieldType": "dropdown",
-        "options": ["Podstawowa", "Średnia", "Wysoka", "Brak preferencji"],
-        "required": true,
+        "options": ["Brak preferencji", "Podstawowa", "Średnia", "Wysoka"],
+        "required": false,
         "many-answers": true
       },
       {
         "id": 7,
         "question": "Ile pamięci RAM potrzebujesz?",
+        "short_question": "Ilość RAMu",
         "fieldType": "dropdown",
-        "options": ["8GB", "16GB", "32GB", "64GB", "Więcej.."],
-        "required": true,
+        "options": ["Brak preferencji", "8GB", "16GB", "32GB", "64GB", "Więcej.."],
+        "required": false,
         "many-answers": false
       },
       {
         "id": 8,
         "question": "Jakie rozwiązanie do przechowywania danych preferujesz?",
+        "short_question": "Dysk",
         "fieldType": "dropdown",
-        "options": ["SSD", "HDD", "Kombinacja SSD/HDD", "Brak preferencji"],
+        "options": ["Brak preferencji", "SSD", "HDD", "Kombinacja SSD/HDD"],
         "required": false,
         "many-answers": false
       },
       {
         "id": 9,
         "question": "Jaki rozmiar i typ obudowy komputera preferujesz?",
+        "short_question": "Rozmiar obudowy",
         "fieldType": "dropdown",
-        "options": ["Mini Tower", "Mid Tower", "Full Tower", "Brak preferencji"],
+        "options": ["Brak preferencji", "Mini Tower", "Mid Tower", "Full Tower"],
         "required": false,
+        "many-answers": false
+      },
+      {
+        "id": 10,
+        "question": "Jakiego koloru ma być komputer?",
+        "fieldType": "dropdown",
+        "options": ["Brak preferencji", "Biały", "Czarny", "Czarno/Biały", "inny.."],
+        "required": true,
+        "many-answers": false
+      },
+      {
+        "id": 11,
+        "question": "Jaką rozdzielczość ma Twój obecny lub planowany monitor?",
+        "short_question": "Rozdzielczość monitora",
+        "fieldType": "dropdown",
+        "options": ["1280x720 (HD)", "1920x1080 (Full HD)", "2560x1440 (QHD)", "3840x2160 (4K UHD)", "7680x4320 (8K UHD)", "inna.."],
+        "required": false,
+        "many-answers": false
+      },
+      {
+        "id": 12,
+        "question": "Czy potrzebujesz monitora w zestawie z Twoim nowym komputerem?",
+        "fieldType": "dropdown",
+        "options": ["Tak", "Nie"],
+        "required": true,
+        "many-answers": false
+      },
+      {
+        "id": 13,
+        "question": "Ile monitorów obecnie posiadasz/będziesz posiadał?",
+        "short_question": "Ilość monitorów",
+        "fieldType": "dropdown",
+        "options": ["1", "2", "3", "4 lub więcej"],
+        "required": true,
         "many-answers": false
       }
     ]

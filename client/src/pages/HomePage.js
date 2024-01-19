@@ -18,7 +18,12 @@ function HomePage() {
       <h1>Strona główna</h1>
       {user ? <p>Witaj {user.name}!</p> : null}
       {user ? (
-        <button onClick={handleLogout}>Wyloguj się</button>
+        <>
+          <button onClick={handleLogout}>Wyloguj się</button>
+          <Link to="/computer-config">
+            <button>Konfiguracja Komputera</button>
+          </Link>
+        </>
       ) : (
         <>
           <Link to="/login">
