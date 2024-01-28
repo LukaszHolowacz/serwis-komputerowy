@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ComputerConfigPage from './pages/ComputerConfigPage';
+import AdminPanelPage from './pages/AdminPanelPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/computer-config" element={<ComputerConfigPage />} />
+        <Route path="/admin" element={<AdminPanelPage />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>

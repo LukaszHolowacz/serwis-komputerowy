@@ -4,7 +4,6 @@ import { AdditionalQuestions } from './AdditionalQuestions';
 import { Pagination } from './Pagination';
 import FooterPagination from './FooterPagination';
 import data from '../../../assets/json/questions.json';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import useFormLogic from './useFormLogic';
 import LoginPrompt from '../../LoginPrompt';
 
