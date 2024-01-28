@@ -69,7 +69,7 @@
       {
         "id": 7,
         "question": "Ile pamięci RAM potrzebujesz?",
-        "short_question": "Ilość RAMu",
+        "short_question": "Ilość pamięci RAM",
         "fieldType": "dropdown",
         "options": ["Brak preferencji", "8GB", "16GB", "32GB", "64GB", "Więcej.."],
         "required": false,

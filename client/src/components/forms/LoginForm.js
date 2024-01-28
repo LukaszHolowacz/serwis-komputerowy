@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import FormField from './FormField';
 import validateLoginForm from './validation/validateLoginForm'; 
@@ -19,49 +20,28 @@ function LoginForm() {
     const { name, value, type, checked } = e.target;
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
-
-  async function handleServerResponse(response) {
-    if (response.status === 401) {
-      const errorResponse = await response.text();
-      setErrorMessage(errorResponse);
-      return false; 
-    }
-  
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Błąd logowania. Spróbuj ponownie.');
-    }
-  
-    const data = await response.json();
-    if (response.ok) {
-      localStorage.setItem('token', data.token);
-      navigate('/');
-    }
-    
-    return true; 
-  }
   
   async function handleSubmit(event) {
     event.preventDefault();
     const errors = validateLoginForm(formData);
     setFormErrors(errors);
-  
+
     if (Object.keys(errors).length === 0) {
-      setErrorMessage('');
-      try {
-        const response = await fetch('http://localhost:3001/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-  
-        await handleServerResponse(response);
-      } catch (error) {
-        setErrorMessage(error.message);
-      }
+        setErrorMessage('');
+        try {
+            const response = await axios.post('http://localhost:3001/login', formData);
+
+            if (response.status === 200) {
+                localStorage.setItem('token', response.data.token);
+                navigate('/');
+            } else {
+                setErrorMessage(response.data.message || 'Błąd logowania. Spróbuj ponownie.');
+            }
+        } catch (error) {
+            setErrorMessage(error.response.data.message || 'Błąd serwera.');
+        }
     }
   }
-  
 
   const formFields = [
     { type: 'text', name: 'email', placeholder: 'E-mail' },

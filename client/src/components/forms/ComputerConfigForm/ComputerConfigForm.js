@@ -5,28 +5,41 @@ import { Pagination } from './Pagination';
 import FooterPagination from './FooterPagination';
 import data from '../../../assets/json/questions.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const requiredQuestionsData = data.questions.filter(question => question.required);
+import useFormLogic from './useFormLogic';
+import LoginPrompt from '../../LoginPrompt';
 
 function ComputerConfigForm() {
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState({});
-    const [selectedAdditionalQuestions, setSelectedAdditionalQuestions] = useState([]);
-    const [additionalComments, setAdditionalComments] = useState('');
+
+    const requiredQuestionsData = data.questions.filter(question => question.required);
+    const defaultAnswers = requiredQuestionsData.reduce((acc, question) => {
+        acc[question.id] = question.options ? question.options[0] : '';
+        return acc;
+    }, {});
+
+    const token = localStorage.getItem('token');
+    const submitUrl = 'http://localhost:3001/pc-form-register';
+
+    const {
+        answers,
+        selectedAdditionalQuestions,
+        setSelectedAdditionalQuestions,
+        additionalComments,
+        setAdditionalComments,
+        handleChange,
+        handleFinish,
+        currentQuestionIndex, 
+        setCurrentQuestionIndex, 
+    } = useFormLogic(defaultAnswers, submitUrl, token);
 
     const isLastQuestion = currentQuestionIndex === requiredQuestionsData.length - 1;
     const isAdditionalQuestionsView = currentQuestionIndex === requiredQuestionsData.length;
 
-    const handleChange = (questionId, answer) => {
-        setAnswers(prevAnswers => ({
-            ...prevAnswers,
-            [questionId]: answer
-        }));
-    };
+    if (!token) {
+        return <LoginPrompt />;
+    }
 
-    const handleFinish = () => {
-        console.log(answers);
-    };
+    console.log("currentQuestionIndex:", currentQuestionIndex, "isAdditionalQuestionsView:", isAdditionalQuestionsView);
+
 
     return (
         <div className="container mt-3">

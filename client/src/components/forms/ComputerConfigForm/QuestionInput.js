@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Eksportujemy renderInputField jako named export, aby można było go użyć w innych komponentach
 export const renderInputField = (question, answers, handleChange) => {
     const value = answers[question.id] || '';
     switch (question.fieldType) {
@@ -31,7 +30,6 @@ export const renderInputField = (question, answers, handleChange) => {
     }
 };
 
-// Komponent QuestionInput korzysta teraz z wyeksportowanej funkcji renderInputField
 export const QuestionInput = ({ question, answers, handleChange }) => {
     return (
         <div className="mb-3">

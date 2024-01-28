@@ -42,10 +42,10 @@ router.post('/addUser', (req, res) => {
 
             pool.query('INSERT INTO users (role, name, surname, email, phone_nbr, password, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
                     [userRole, firstname, lastname, email, phone, hash, new Date()], (insertErr, results) => {
-            if (insertErr) {
-                throw insertErr;
-            }
-            res.status(201).send('Pomyślnie dodano użytkownika!');
+                if (insertErr) {
+                    throw insertErr;
+                }
+                res.status(201).send('Pomyślnie dodano użytkownika!');
             });
         });
     });
@@ -54,7 +54,6 @@ router.post('/addUser', (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password, rememberMe } = req.body; 
 
-    // Znajdź użytkownika w bazie danych
     const userQuery = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
     if (userQuery.rows.length === 0) {
         return res.status(401).send({ message: 'Nieprawidłowy email lub hasło' });
@@ -62,16 +61,13 @@ router.post('/login', async (req, res) => {
 
     const user = userQuery.rows[0];
 
-    // Sprawdź, czy hasło jest poprawne
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
         return res.status(401).send({ message: 'Nieprawidłowy email lub hasło' });
     }
 
-    // Ustaw czas wygaśnięcia tokena
     const expiresIn = rememberMe ? '62d' : '1h'; 
 
-    // Generuj token JWT
     const token = jwt.sign(
         { 
           userId: user.id,
@@ -85,6 +81,19 @@ router.post('/login', async (req, res) => {
   
       res.send({ token });
 });
+
+router.post('/pc-form-register', (req, res) => {
+    const { userId, answers, additionalComments } = req.body;
+
+    pool.query('INSERT INTO orders (user_id, status, details, additional_comments) VALUES ($1, $2, $3, $4)',
+        [userId, 'pending', answers, additionalComments], (insertErr, results) => {
+            if (insertErr) {
+                throw insertErr;
+            }
+            res.status(201).send('Przyjęto twoje zamówienie!');
+        }
+    )
+})
 
 
 app.listen(port, () => {
