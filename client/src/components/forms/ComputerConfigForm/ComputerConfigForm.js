@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { QuestionInput } from './QuestionInput';
 import { AdditionalQuestions } from './AdditionalQuestions';
 import { Pagination } from './Pagination';
@@ -17,7 +17,7 @@ function ComputerConfigForm() {
     }, {});
 
     const token = localStorage.getItem('token');
-    const submitUrl = 'http://localhost:3001/pc-form-register';
+    const submitUrl = 'http://localhost:3001/orders/pc-form-register';
 
     const {
         answers,
@@ -37,9 +37,6 @@ function ComputerConfigForm() {
     if (!token) {
         return <LoginPrompt />;
     }
-
-    console.log("currentQuestionIndex:", currentQuestionIndex, "isAdditionalQuestionsView:", isAdditionalQuestionsView);
-
 
     return (
         <div className="container mt-3">

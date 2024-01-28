@@ -29,7 +29,7 @@ function LoginForm() {
     if (Object.keys(errors).length === 0) {
         setErrorMessage('');
         try {
-            const response = await axios.post('http://localhost:3001/login', formData);
+            const response = await axios.post('http://localhost:3001/users/login', formData);
 
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token);
