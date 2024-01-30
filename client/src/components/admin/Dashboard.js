@@ -6,11 +6,11 @@ import UserManagement from './UserManagement';
 import ProductsManagement from './ProductsManagement';
 
 function Dashboard() {
-  const [activeTab, setActiveTab] = useState('latest-orders');
+  const [activeTab, setActiveTab] = useState('orders');
 
   const renderContent = () => {
     switch(activeTab) {
-      case 'latest-orders':
+      case 'orders':
         return <LatestOrders />;
       case 'earnings':
         return <Earnings />;
@@ -28,7 +28,7 @@ function Dashboard() {
       <Row>
         <Col md={3} lg={2} className="d-none d-md-block bg-light sidebar">
           <Nav className="flex-column">
-            <Nav.Link onClick={() => setActiveTab('latest-orders')}>Ostatnie Zamówienia</Nav.Link>
+            <Nav.Link onClick={() => setActiveTab('orders')}>Zamówienia</Nav.Link>
             <Nav.Link onClick={() => setActiveTab('earnings')}>Zarobki</Nav.Link>
             <Nav.Link onClick={() => setActiveTab('user-management')}>Zarządzanie Użytkownikami</Nav.Link>
             <Nav.Link onClick={() => setActiveTab('products-management')}>Zarządzanie Produktami</Nav.Link>
@@ -40,7 +40,7 @@ function Dashboard() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link onClick={() => setActiveTab('latest-orders')}>Ostatnie Zamówienia</Nav.Link>
+                <Nav.Link onClick={() => setActiveTab('orders')}>Zamówienia</Nav.Link>
                 <Nav.Link onClick={() => setActiveTab('earnings')}>Zarobki</Nav.Link>
                 <Nav.Link onClick={() => setActiveTab('user-management')}>Zarządzanie Użytkownikami</Nav.Link>
                 <Nav.Link onClick={() => setActiveTab('products-management')}>Zarządzanie Produktami</Nav.Link>
