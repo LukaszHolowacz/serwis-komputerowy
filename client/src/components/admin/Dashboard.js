@@ -3,6 +3,7 @@ import { Container, Row, Col, Nav, Navbar } from 'react-bootstrap';
 import LatestOrders from './LatestOrders';
 import Earnings from './Earnings';
 import UserManagement from './UserManagement';
+import ProductsManagement from './ProductsManagement';
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState('latest-orders');
@@ -15,6 +16,8 @@ function Dashboard() {
         return <Earnings />;
       case 'user-management':
         return <UserManagement />;
+      case 'products-management':
+        return <ProductsManagement />
       default:
         return <Earnings />;
     }
@@ -28,6 +31,7 @@ function Dashboard() {
             <Nav.Link onClick={() => setActiveTab('latest-orders')}>Ostatnie Zamówienia</Nav.Link>
             <Nav.Link onClick={() => setActiveTab('earnings')}>Zarobki</Nav.Link>
             <Nav.Link onClick={() => setActiveTab('user-management')}>Zarządzanie Użytkownikami</Nav.Link>
+            <Nav.Link onClick={() => setActiveTab('products-management')}>Zarządzanie Produktami</Nav.Link>
           </Nav>
         </Col>
 
@@ -39,6 +43,7 @@ function Dashboard() {
                 <Nav.Link onClick={() => setActiveTab('latest-orders')}>Ostatnie Zamówienia</Nav.Link>
                 <Nav.Link onClick={() => setActiveTab('earnings')}>Zarobki</Nav.Link>
                 <Nav.Link onClick={() => setActiveTab('user-management')}>Zarządzanie Użytkownikami</Nav.Link>
+                <Nav.Link onClick={() => setActiveTab('products-management')}>Zarządzanie Produktami</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
