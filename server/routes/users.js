@@ -68,4 +68,43 @@ router.post('/login', async (req, res) => {
       res.send({ token });
 });
 
+router.get('/search', async (req, res) => {
+    const searchQuery = req.query.search;
+    const sortOrder = req.query.sortOrder || 'id_asc'; 
+
+    let queryParams = [];
+    let queryConditions = [];
+    let query = `
+        SELECT id, role, name, surname, email, phone_nbr, created_at FROM users
+    `;
+
+    if (searchQuery) {
+        queryParams.push(`%${searchQuery}%`);
+        queryConditions.push('(id::text LIKE $1 OR email LIKE $1 OR phone_nbr LIKE $1)');
+    }
+
+    if (queryConditions.length > 0) {
+        query += ' WHERE ' + queryConditions.join(' AND ');
+    }
+
+    switch (sortOrder) {
+        case 'id_asc':
+            query += ' ORDER BY id ASC';
+            break;
+        case 'id_desc':
+            query += ' ORDER BY id DESC';
+            break;
+    }
+
+    try {
+        const result = await pool.query(query, queryParams);
+        if (result.rows.length === 0) {
+            return res.status(404).send('Nie znaleziono użytkowników.');
+        }
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).send('Wystąpił problem z bazą danych.');
+    }
+});
+
 module.exports = router;

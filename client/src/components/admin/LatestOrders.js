@@ -59,10 +59,10 @@ function LatestOrders() {
         </Col>
         <Col xs="auto">
           <Form.Select style={{ width: "auto" }} onChange={handleSortChange}>
-          <option value="date_desc">Po dacie malejąco</option>
-            <option value="date_asc">Po dacie rosnąco</option>
-            <option value="id_desc">Po ID zamówienia malejąco</option>
-            <option value="id_asc">Po ID zamówienia rosnąco</option> 
+          <option value="date_desc">Data malejąco</option>
+            <option value="date_asc">Data rosnąco</option>
+            <option value="id_desc">ID zamówienia malejąco</option>
+            <option value="id_asc">ID zamówienia rosnąco</option> 
           </Form.Select>
         </Col>
         <Col xs="auto">

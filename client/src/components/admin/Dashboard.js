@@ -4,9 +4,11 @@ import LatestOrders from './LatestOrders';
 import Earnings from './Earnings';
 import UserManagement from './UserManagement';
 import ProductsManagement from './ProductsManagement';
+import UserManagementForm from './ManagementForms/UserManagementForm';
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState('orders');
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const renderContent = () => {
     switch(activeTab) {
@@ -15,9 +17,11 @@ function Dashboard() {
       case 'earnings':
         return <Earnings />;
       case 'user-management':
-        return <UserManagement />;
+        return <UserManagement setActiveTab={setActiveTab} setSelectedUser={setSelectedUser} />;
       case 'products-management':
         return <ProductsManagement />
+      case 'user-management-form':
+        return <UserManagementForm setActiveTab={setActiveTab} user={selectedUser} />
       default:
         return <Earnings />;
     }
