@@ -124,7 +124,7 @@ router.get('/search', async (req, res) => {
 });
 
 router.put('/update-user', async (req, res) => {
-    const { id, firstName, lastName, role, email, phoneNumber } = req.body;
+    const { id, name: firstName, surname: lastName, role, email, phone_nbr: phoneNumber } = req.body;
   
     const checkEmailQuery = `
         SELECT 1 FROM users WHERE email = $1 AND id != $2

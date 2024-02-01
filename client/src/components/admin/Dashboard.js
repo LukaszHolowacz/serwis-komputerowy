@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Nav, Navbar } from 'react-bootstrap';
 import LatestOrders from './LatestOrders';
 import Earnings from './Earnings';
-import UserManagement from './UserManagement';
+import UserManagement from './UserManagement/UserManagement';
 import ProductsManagement from './ProductsManagement';
-import UserManagementForm from './ManagementForms/UserManagementForm';
+import UserManagementForm from './UserManagement/UserManagementForm';
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState('orders');
