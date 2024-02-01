@@ -16,7 +16,7 @@ function ComputerConfigForm() {
     }, {});
 
     const token = localStorage.getItem('token');
-    const submitUrl = 'http://localhost:3001/orders/pc-form-register';
+    const submitUrl = 'http://localhost:3001/orders/addOrder';
 
     const {
         answers,

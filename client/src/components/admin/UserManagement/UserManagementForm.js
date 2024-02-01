@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from './useForm';
-import { updateUser, toggleUserBanStatus } from './api';
+import { useForm } from './hooks/useForm';
+import { updateUser, toggleUserBanStatus } from './api/usersApi';
 import { Button, Form, FormGroup, Col, Row, Alert } from 'react-bootstrap';
-import FormField from './FormField'
+import FormField from './components/FormField'
 
 function UserManagementForm({ user, setActiveTab }) {
   const initialFormState = { name: '', surname: '', role: 'user', email: '', phone_nbr: '' };
@@ -47,7 +47,6 @@ function UserManagementForm({ user, setActiveTab }) {
         id: user?.id,
         ...formData
       });
-      console.log(formData);
       alert("Dane użytkownika zostały zaktualizowane.");
       setActiveTab('user-management');
     } catch (error) {

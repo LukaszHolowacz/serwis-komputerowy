@@ -90,7 +90,7 @@ function UserManagement({ setActiveTab, setSelectedUser }) {
         <Table striped bordered hover responsive>
           <thead>
             <tr>
-              <th>ID Użytkownika</th>
+              <th>ID</th>
               <th>Email</th>
               <th>Telefon</th>
               <th>Data Założenia Konta</th>
@@ -113,10 +113,6 @@ function UserManagement({ setActiveTab, setSelectedUser }) {
                     {user.is_banned ? <UnlockFill /> : <LockFill />}
                     <span className="d-none d-md-inline"> {user.is_banned ? ' Odblokuj' : ' Zablokuj'}</span>
                   </Button>{' '}
-                  <Button variant="outline-danger">
-                    <Trash />
-                    <span className="d-none d-md-inline"> Usuń</span>
-                  </Button>
                 </td>
               </tr>
             ))}

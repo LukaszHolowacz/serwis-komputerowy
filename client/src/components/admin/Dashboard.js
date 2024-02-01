@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Nav, Navbar } from 'react-bootstrap';
-import LatestOrders from './LatestOrders';
+import LatestOrders from './OrdersManagement/Orders';
 import Earnings from './Earnings';
 import UserManagement from './UserManagement/UserManagement';
 import ProductsManagement from './ProductsManagement';

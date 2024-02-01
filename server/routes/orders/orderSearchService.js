@@ -1,27 +1,8 @@
-const express = require('express');
-const pool = require('../database');
-const router = express.Router();
+const pool = require('../../database');
 
-router.post('/pc-form-register', (req, res) => {
-    const { userId, answers, additionalComments } = req.body;
-    try{
-        pool.query('INSERT INTO orders (user_id, status, details, additional_comments) VALUES ($1, $2, $3, $4)',
-        [userId, 'pending', answers, additionalComments], (insertErr, results) => {
-            if (insertErr) {
-                throw insertErr;
-            }
-            res.status(201).send('Przyjęto twoje zamówienie!');
-        }
-        )
-    } catch (error) { 
-        res.status(500).send('Błąd serwera');
-    }
-    
-})
-
-router.get('/search', async (req, res) => {
+async function orderSearch(req, res) {
     const searchQuery = req.query.search;
-    const sortOrder = req.query.sortOrder || 'date_desc'; // Domyślne sortowanie
+    const sortOrder = req.query.sortOrder || 'date_desc'; 
     const status = req.query.status;
 
     let queryParams = [];
@@ -71,8 +52,8 @@ router.get('/search', async (req, res) => {
         console.error(err);
         res.status(500).send('Wystąpił problem z bazą danych.');
     }
-});
+};
 
-
-
-module.exports = router;
+module.exports = {
+    orderSearch
+};
