@@ -6,5 +6,6 @@ const orderService = require('./orderService');
 
 router.post('/addOrder', orderService.registerOrder);
 router.get('/search', orderSearchService.orderSearch);
+router.get('/change-order-status', orderService.changeOrderStatus);
 
 module.exports = router;

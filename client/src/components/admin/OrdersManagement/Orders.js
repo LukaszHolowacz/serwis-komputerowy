@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Row, Col, Form, Table } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Table } from 'react-bootstrap';
 import { useOrders } from './hooks/useOrders';
 import { EditButton, CancelButton } from './components/ActionButton';
 import SearchFilters from './components/SearchFilters';
-import { cancelOrderApi } from './api/ordersApi';
+import { changeOrderStatus } from './api/ordersApi';
 import { format, parseISO } from 'date-fns';
 import { pl } from 'date-fns/locale';
 
@@ -16,7 +16,13 @@ function LatestOrders() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('');
   const [orderStatus, setOrderStatus] = useState('');
-  const orders = useOrders(searchQuery, sortOrder, orderStatus);
+  const [reload, setReload] = useState(false);
+
+  const orders = useOrders(searchQuery, sortOrder, orderStatus, reload);
+
+  useEffect(() => {
+    setReload(false); 
+  }, [reload]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -30,11 +36,17 @@ function LatestOrders() {
     setOrderStatus(event.target.value);
   };
 
-  const cancelOrder = (orderId) => {
-    cancelOrderApi(orderId);
-    // Może być potrzebne odświeżenie listy zamówień po anulowaniu
+  const cancelOrder = async (orderId, status) => {
+    const isConfirmed = window.confirm("Czy na pewno chcesz anulować to zamówienie?");
+    if (isConfirmed) {
+      try {
+        await changeOrderStatus(orderId, status); 
+        setReload(true);
+      } catch (error) {
+        console.error("Błąd podczas anulowania zamówienia:", error);
+      }
+    }
   };
-
   return (
     <div>
       <h2>Zamówienia</h2>
@@ -67,7 +79,7 @@ function LatestOrders() {
               <td>{order.status}</td>
               <td>
                 <EditButton onClick={() => console.log('Edycja', order.id)} />
-                <CancelButton onClick={() => cancelOrder(order.id)} />
+                <CancelButton onClick={() => cancelOrder(order.id, "cancelled")} />
               </td>
             </tr>
           ))}

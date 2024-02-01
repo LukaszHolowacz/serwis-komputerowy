@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchOrders } from '../api/ordersApi';
 
-export const useOrders = (searchQuery, sortOrder, orderStatus) => {
+export const useOrders = (searchQuery, sortOrder, orderStatus, reloadTrigger) => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export const useOrders = (searchQuery, sortOrder, orderStatus) => {
     };
 
     fetchData();
-  }, [searchQuery, sortOrder, orderStatus]);
+  }, [searchQuery, sortOrder, orderStatus, reloadTrigger]); 
 
   return orders;
 };

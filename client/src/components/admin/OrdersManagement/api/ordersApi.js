@@ -14,6 +14,14 @@ export const fetchOrders = async (searchQuery, sortOrder, orderStatus) => {
   }
 };
 
-export const cancelOrderApi = async (orderId) => {
-  console.log(`Anulowanie zamówienia o ID: ${orderId}`);
+export const changeOrderStatus = async (orderId, newStatus) => {
+  try { 
+    const response = await axios.get(`${baseURL}/change-order-status`, {
+      params: { orderId: orderId, status: newStatus},
+    });
+    return response.message;
+  } catch (error) {
+    console.error('Wystąpił błąd podczas zmiany statusu zamówienia', error);
+    throw error;
+  }
 };
