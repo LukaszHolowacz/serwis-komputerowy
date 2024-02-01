@@ -22,26 +22,29 @@ function LoginForm() {
   };
   
   async function handleSubmit(event) {
-    event.preventDefault();
-    const errors = validateLoginForm(formData);
-    setFormErrors(errors);
+  event.preventDefault();
+  const errors = validateLoginForm(formData);
+  setFormErrors(errors);
 
-    if (Object.keys(errors).length === 0) {
-        setErrorMessage('');
-        try {
-            const response = await axios.post('http://localhost:3001/users/login', formData);
+  if (Object.keys(errors).length === 0) {
+    setErrorMessage('');
+    try {
+      const response = await axios.post('http://localhost:3001/users/login', formData);
 
-            if (response.status === 200) {
-                localStorage.setItem('token', response.data.token);
-                navigate('/');
-            } else {
-                setErrorMessage(response.data.message || 'Błąd logowania. Spróbuj ponownie.');
-            }
-        } catch (error) {
-            setErrorMessage(error.response.data.message || 'Błąd serwera.');
-        }
+      if (response.status === 200) {
+          localStorage.setItem('token', response.data.token);
+          navigate('/');
+      } 
+    } catch (error) {
+      if (error.response && error.response.status === 403) {
+        navigate('/banned');
+      } else {
+        setErrorMessage(error.response.data.message || 'Błąd serwera.');
+      }
     }
   }
+}
+
 
   const formFields = [
     { type: 'text', name: 'email', placeholder: 'E-mail' },
