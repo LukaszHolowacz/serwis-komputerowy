@@ -65,9 +65,24 @@ async function unbanUser(req, res) {
     }
 }
 
+async function getUserData(req, res) {
+    const id = req.query.userId;
+    try {
+        const result = await pool.query('SELECT id, name, surname, email, phone_nbr, created_at FROM users WHERE id = $1', [id]);
+        if (result.rowCount === 0) {
+            return res.status(404).send({ message: "Nie znaleziono użytkownika o podanym id!" });
+        }
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({message: "Wystąpił błąd."})
+    }
+}
+
 module.exports = {
     addUser,
     updateUser,
     banUser,
     unbanUser,
+    getUserData,
 };

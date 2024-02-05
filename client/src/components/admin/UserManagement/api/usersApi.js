@@ -9,3 +9,9 @@ export const updateUser = async (userData) => {
 export const toggleUserBanStatus = async (id, action) => {
   return await axios.put(`${API_URL}${action}-user`, { id });
 };
+
+export const fetchUsers = async (searchQuery, sortOrder, filter) => {
+  return await axios.get(`${API_URL}search`, {
+    params: { search: searchQuery, sortOrder, filter }
+  });
+};

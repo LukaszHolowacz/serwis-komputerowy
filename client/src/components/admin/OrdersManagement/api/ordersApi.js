@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3001/orders';
+const baseURL = 'http://localhost:3001'; // Dostosowano bazowy URL do potrzeb
+
+// Istniejące funkcje
 
 export const fetchOrders = async (searchQuery, sortOrder, orderStatus) => {
   try {
-    const response = await axios.get(`${baseURL}/search`, {
+    const response = await axios.get(`${baseURL}/orders/search`, {
       params: { search: searchQuery, sortOrder, status: orderStatus },
     });
     return response.data;
@@ -16,7 +18,7 @@ export const fetchOrders = async (searchQuery, sortOrder, orderStatus) => {
 
 export const changeOrderStatus = async (orderId, newStatus) => {
   try { 
-    const response = await axios.get(`${baseURL}/change-order-status`, {
+    const response = await axios.get(`${baseURL}/orders/change-order-status`, {
       params: { orderId: orderId, status: newStatus},
     });
     return response.message;
@@ -25,3 +27,34 @@ export const changeOrderStatus = async (orderId, newStatus) => {
     throw error;
   }
 };
+
+export const fetchUserData = async (userId) => {
+  try {
+    const response = await axios.get(`${baseURL}/users/get-user-data`, { 
+      params: { userId },
+    });
+    if (response.data.length === 0) {
+      throw new Error('Nie znaleziono użytkownika o podanym id.');
+    }
+    return response.data[0]; 
+  } catch (error) {
+    console.error('Error fetching user data: ', error);
+    throw error;
+  }
+};
+
+export const fetchOrderProducts = async (orderId) => {
+  console.log(orderId);
+  try{
+    const response = await axios.get(`${baseURL}/orders/get-order-products`, {
+      params: { orderId }
+    })
+    if (response.data.length === 0) {
+      throw new Error('Nie znaleziono zamówienia o podanym id.');
+    }
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching order products: ', error);
+    throw error;
+  }
+}

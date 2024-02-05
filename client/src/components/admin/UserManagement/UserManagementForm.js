@@ -70,33 +70,34 @@ function UserManagementForm({ user, setActiveTab }) {
 
   return (
     <div>
-    <h3 className="mb-3">Zarządzanie użytkownikiem nr. {user.id}</h3>
-    {error && <Alert variant="danger">{error}</Alert>}
-    <Form onSubmit={handleSubmit}>
-      {formFieldsData.map(field => (
-        <FormField
-          key={field.name}
-          label={field.label}
-          type={field.type}
-          name={field.name}
-          placeholder={field.placeholder}
-          value={formData[field.name]}
-          onChange={handleInputChange}
-          options={field.options || []} 
-        />
-      ))}
-
-      <FormGroup as={Row}>
-        <Col sm={{ span: 10, offset: 2 }}>
-          <Button type="submit">Zapisz zmiany</Button>{' '}
-          <Button variant={isBanned ? 'success' : 'warning'} onClick={handleToggleBanStatus}>
-            {isBanned ? 'Odblokuj' : 'Zablokuj'}
-          </Button>{' '}
-          <Button variant="secondary" onClick={() => setActiveTab('user-management')}>
-            Powrót
-          </Button>
-        </Col>
-      </FormGroup>
+      <div xs={12} className="d-flex justify-content-between">
+        <Button variant="outline-primary" onClick={() => setActiveTab('user-management')} className="mr-2 mb-3 mt-3">
+          Powrót
+        </Button>
+        <h3 className="mr-2 mb-3 mt-3">Zarządzanie użytkownikiem nr. {user.id}</h3>
+      </div>
+      {error && <Alert variant="danger">{error}</Alert>}
+      <Form onSubmit={handleSubmit}>
+        {formFieldsData.map(field => (
+          <FormField
+            key={field.name}
+            label={field.label}
+            type={field.type}
+            name={field.name}
+            placeholder={field.placeholder}
+            value={formData[field.name]}
+            onChange={handleInputChange}
+            options={field.options || []} 
+          />
+        ))}
+        <FormGroup as={Row}>
+          <Col sm={{ span: 10, offset: 2 }}>
+            <Button type="submit">Zapisz zmiany</Button>{' '}
+            <Button variant={isBanned ? 'success' : 'warning'} onClick={handleToggleBanStatus}>
+              {isBanned ? 'Odblokuj' : 'Zablokuj'}
+            </Button>{' '}
+          </Col>
+        </FormGroup>
       </Form>
     </div>
   );

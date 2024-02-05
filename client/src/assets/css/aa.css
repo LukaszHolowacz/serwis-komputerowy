@@ -1,0 +1,14 @@
+.card {
+    background-color: #f8f9fa; /* jasny odcień szarości dla tła */
+    border-radius: 0.5rem; /* zaokrąglone rogi */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* subtelny cień */
+}
+
+.custom-card {
+    max-height: 485px;
+    overflow-y: auto;
+}
+
+.products-card {
+    max-height: 791px;
+}

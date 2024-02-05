@@ -10,5 +10,6 @@ router.put('/update-user', userService.updateUser);
 router.put('/ban-user', userService.banUser);
 router.put('/unban-user', userService.unbanUser);
 router.get('/search', searchService.searchUsers);
+router.get('/get-user-data', userService.getUserData);
 
 module.exports = router;

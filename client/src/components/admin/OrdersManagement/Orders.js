@@ -12,7 +12,7 @@ function formatDate(dateString) {
   return format(parsedDate, "d MMMM yyyy HH:mm", { locale: pl });
 }
 
-function LatestOrders() {
+function LatestOrders({ onEditOrder }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('');
   const [orderStatus, setOrderStatus] = useState('');
@@ -78,7 +78,7 @@ function LatestOrders() {
               <td>{formatDate(order.order_date)}</td>
               <td>{order.status}</td>
               <td>
-                <EditButton onClick={() => console.log('Edycja', order.id)} />
+                <EditButton onClick={() => onEditOrder(order)} />
                 <CancelButton onClick={() => cancelOrder(order.id, "cancelled")} />
               </td>
             </tr>

@@ -5,15 +5,22 @@ import Earnings from './Earnings';
 import UserManagement from './UserManagement/UserManagement';
 import ProductsManagement from './ProductsManagement';
 import UserManagementForm from './UserManagement/UserManagementForm';
+import OrderEditPage from './OrdersManagement/OrderEditPage';
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState('orders');
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
+  const handleEditOrder = (order) => {
+    setSelectedOrder(order);
+    setActiveTab('order-edit-page');
+  };
+  
   const renderContent = () => {
     switch(activeTab) {
       case 'orders':
-        return <LatestOrders />;
+        return <LatestOrders onEditOrder={handleEditOrder} />;
       case 'earnings':
         return <Earnings />;
       case 'user-management':
@@ -22,6 +29,8 @@ function Dashboard() {
         return <ProductsManagement />
       case 'user-management-form':
         return <UserManagementForm setActiveTab={setActiveTab} user={selectedUser} />
+      case 'order-edit-page':
+        return <OrderEditPage order={selectedOrder} setActiveTab={setActiveTab} />        
       default:
         return <Earnings />;
     }
