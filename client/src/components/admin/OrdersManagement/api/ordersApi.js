@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3001'; // Dostosowano bazowy URL do potrzeb
-
-// Istniejące funkcje
+const baseURL = 'http://localhost:3001';
 
 export const fetchOrders = async (searchQuery, sortOrder, orderStatus) => {
   try {
@@ -44,7 +42,6 @@ export const fetchUserData = async (userId) => {
 };
 
 export const fetchOrderProducts = async (orderId) => {
-  console.log(orderId);
   try{
     const response = await axios.get(`${baseURL}/orders/get-order-products`, {
       params: { orderId }
@@ -58,3 +55,15 @@ export const fetchOrderProducts = async (orderId) => {
     throw error;
   }
 }
+
+export const deleteOrderProduct = async (id) => {
+  try {
+    const response = await axios.delete(`${baseURL}/orders/delete-order-product`, {
+      params: { id }
+    });
+    return response.data; 
+  } catch (error) {
+    console.error('Error deleting order product: ', error);
+    throw error;
+  }
+};

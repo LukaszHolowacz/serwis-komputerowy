@@ -11,4 +11,5 @@
 
 .products-card {
     max-height: 791px;
+    overflow-y: auto;
 }

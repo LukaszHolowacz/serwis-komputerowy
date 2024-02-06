@@ -19,7 +19,7 @@ async function registerOrder(req, res) {
 async function getOrderProducts(req, res) {
     const orderId = req.query.orderId;
     const query = `
-      SELECT products.id AS id, products.name AS name, products.price AS price, category_id
+      SELECT order_products.id AS id, products.id AS product_id, products.name AS name, products.price AS price, category_id
       FROM order_products
       INNER JOIN products ON order_products.product_id = products.id
       WHERE order_products.order_id = $1;
@@ -64,9 +64,25 @@ async function getOrderData(req, res) {
     }
 }
 
+async function deleteOrderProduct(req, res) {
+    const id = req.query.id; 
+    try {
+        const result = await pool.query('DELETE FROM order_products WHERE id = $1', [id]);
+        if (result.rowCount === 0){
+            res.status(404).send({ message: 'Nie znaleziono produktu o podanym id' });
+        } else {
+            res.status(200).send({ message: 'Produkt został usunięty' });
+        }
+    } catch (error) {
+        res.status(500).send({ message: "Wystąpił błąd podczas usuwania produktu." });
+    }
+}
+
+
 module.exports = {
     registerOrder,
     changeOrderStatus,
     getOrderProducts,
     getOrderData,
+    deleteOrderProduct,
 };
